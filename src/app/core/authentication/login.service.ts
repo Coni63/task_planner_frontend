@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpContextToken } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { map } from 'rxjs';
 
@@ -12,22 +12,26 @@ export class LoginService {
   protected readonly http = inject(HttpClient);
 
   login(username: string, password: string, rememberMe = false) {
-    return this.http.post<Token>('/auth/login', { username, password, rememberMe });
+    return this.http.post<Token>('/api/auth/token/', {
+      username,
+      password,
+      rememberMe,
+    });
   }
 
   refresh(params: Record<string, any>) {
-    return this.http.post<Token>('/auth/refresh', params);
+    return this.http.post<Token>('/api/auth/refresh/', params);
   }
 
   logout() {
-    return this.http.post<any>('/auth/logout', {});
+    return this.http.post<any>('/api/auth/logout/', {});
   }
 
   me() {
-    return this.http.get<User>('/me');
+    return this.http.get<User>('/api/auth/myself/');
   }
 
   menu() {
-    return this.http.get<{ menu: Menu[] }>('/me/menu').pipe(map(res => res.menu));
+    return this.http.get<{ menu: Menu[] }>('/api/auth/myself/menu/').pipe(map(res => res.menu));
   }
 }

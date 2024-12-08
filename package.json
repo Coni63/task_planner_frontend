@@ -7,7 +7,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config src/proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
     "e2e": "ng e2e",
@@ -48,6 +48,7 @@
     "photoviewer": "^3.10.0",
     "rxjs": "~7.8.0",
     "screenfull": "^6.0.2",
+    "starter": "file:",
     "tslib": "^2.6.0",
     "zone.js": "~0.14.10"
   },
