@@ -20,11 +20,11 @@ export class LoginService {
   }
 
   refresh(params: Record<string, any>) {
-    return this.http.post<Token>('/api/auth/refresh/', params);
+    return this.http.post<Token>('/api/auth/token/refresh/', params);
   }
 
   logout() {
-    return this.http.post<any>('/api/auth/logout/', {});
+    return this.http.post<any>('/api/auth/token/logout/', {});
   }
 
   me() {

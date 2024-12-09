@@ -42,7 +42,7 @@ export class AuthService {
 
   refresh() {
     return this.loginService
-      .refresh(filterObject({ refresh_token: this.tokenService.getRefreshToken() }))
+      .refresh(filterObject({ refresh: this.tokenService.getRefreshToken() }))
       .pipe(
         catchError(() => of(undefined)),
         tap(token => this.tokenService.set(token)),
