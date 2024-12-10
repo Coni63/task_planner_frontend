@@ -1,0 +1,15 @@
+<mat-card appearance="outlined" [class.disabled-card] = "task.status.status === 'On Hold'">
+    <mat-card-header>
+      <mat-card-title>{{task.title}}</mat-card-title>
+      <mat-card-subtitle>{{task.project.name}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p>{{task.description}}</p>
+    </mat-card-content>
+    <mat-card-actions align="end" >
+      <button mat-button>Close</button>
+      @if (task.status.status != 'On Hold') {
+          <button mat-button>Hold</button>
+      }
+    </mat-card-actions>
+  </mat-card>

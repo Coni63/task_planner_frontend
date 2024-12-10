@@ -1,0 +1,11 @@
+<page-header></page-header>
+
+<section>
+    @for(task of myTasks; track task) {
+        <app-single-task-card [task]="task"></app-single-task-card>
+    }
+</section>
+
+<section class="align-right">
+    <a (click)="pickNextTask()" mat-raised-button>Pick Next Task</a>
+</section>

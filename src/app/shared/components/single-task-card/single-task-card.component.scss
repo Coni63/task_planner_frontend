@@ -1,0 +1,8 @@
+.disabled-card {
+    background-color: var(--mdc-filled-text-field-disabled-container-color);
+    color: var(--mdc-filled-text-field-disabled-input-text-color);
+
+    mat-card-subtitle {
+      color: var(--mdc-filled-text-field-disabled-input-text-color);
+    }
+  }
