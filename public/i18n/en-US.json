@@ -78,7 +78,12 @@
     "permissions.role-switching": "Role Switching",
     "permissions.route-guard": "Route Guard",
     "permissions.test": "Permission Test",
-    "my-tasks": "My Tasks"
+    "my-tasks": "My Tasks",
+    "backlog": "Backlog",
+    "backlog.backlog-metrics": "Metrics",
+    "backlog.backlog-table": "Tasks Table",
+    "backlog.backlog-gantt": "Gantt Chart",
+    "backlog.backlog-history": "History"
   },
   "validation": {
     "required": "This field is required",
