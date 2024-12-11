@@ -76,7 +76,9 @@ export class TokenService implements OnDestroy {
       const value = Object.assign({ access_token: '', token_type: 'Bearer' }, token, {
         exp: token.expires_in ? currentTimestamp() + token.expires_in : null,
       });
-      this.store.set(this.key, filterObject(value));
+
+      const normalizedValue = this.convertToSnakeCase(value);
+      this.store.set(this.key, filterObject(normalizedValue));
     }
 
     this.change$.next(this.token);
@@ -97,5 +99,20 @@ export class TokenService implements OnDestroy {
     if (this.timer$ && !this.timer$.closed) {
       this.timer$.unsubscribe();
     }
+  }
+
+  /**
+   * Converts keys of an object from camelCase to snake_case
+   */
+  private convertToSnakeCase(obj: Record<string, any>): Record<string, any> {
+    if (!obj || typeof obj !== 'object') return obj;
+
+    const snakeCaseObj: Record<string, any> = {};
+    for (const [key, value] of Object.entries(obj)) {
+      const snakeKey = key.replace(/([A-Z])/g, '_$1').toLowerCase();
+      snakeCaseObj[snakeKey] =
+        typeof value === 'object' && value !== null ? this.convertToSnakeCase(value) : value;
+    }
+    return snakeCaseObj;
   }
 }
