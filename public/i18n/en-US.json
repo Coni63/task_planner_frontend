@@ -83,7 +83,8 @@
     "backlog.backlog-metrics": "Metrics",
     "backlog.backlog-table": "Tasks Table",
     "backlog.backlog-gantt": "Gantt Chart",
-    "backlog.backlog-history": "History"
+    "backlog.backlog-history": "History",
+    "team-members": "My Team"
   },
   "validation": {
     "required": "This field is required",

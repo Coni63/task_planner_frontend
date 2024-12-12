@@ -57,7 +57,14 @@ export const routes: Routes = [
         path: 'my-tasks',
         loadChildren: () => import('./routes/my-tasks/my-tasks.routes').then(m => m.routes),
       },
-      { path: 'backlog', loadChildren: () => import('./routes/backlog/backlog.routes').then(m => m.routes) },
+      {
+        path: 'backlog',
+        loadChildren: () => import('./routes/backlog/backlog.routes').then(m => m.routes),
+      },
+      {
+        path: 'my-teams',
+        loadChildren: () => import('./routes/my-teams/my-teams.routes').then(m => m.routes),
+      },
     ],
   },
   {
