@@ -1,3 +1,59 @@
 <page-header></page-header>
 
-<p>backlog-table works!</p>
+<!-- <div cdkDropList class="backlog-list" (cdkDropListDropped)="drop($event)">
+    @for (task of tasks; track task) {
+      <app-single-task-row-element class="backlog-item" [task]="task" cdkDrag></app-single-task-row-element>
+    } @empty {
+      <p>No tasks yet</p>
+    }
+  </div>
+   -->
+
+
+   <table mat-table [dataSource]="tasks" cdkDropList (cdkDropListDropped)="drop($event)">
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef> Title </th>
+      <td mat-cell *matCellDef="let task"> {{ task.title }} </td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let task"> {{ task.description }} </td>
+    </ng-container>
+
+    <!-- Picked At Column -->
+    <ng-container matColumnDef="pickedAt">
+      <th mat-header-cell *matHeaderCellDef> Picked At </th>
+      <td mat-cell *matCellDef="let task"> {{ task.pickedAt || 'N/A' }} </td>
+    </ng-container>
+
+    <!-- Estimated Duration Column -->
+    <ng-container matColumnDef="estimatedDuration">
+      <th mat-header-cell *matHeaderCellDef> Duration </th>
+      <td mat-cell *matCellDef="let task"> {{ task.estimatedDuration }} </td>
+    </ng-container>
+
+    <!-- Estimated Finalization Column -->
+    <ng-container matColumnDef="estimatedFinalization">
+      <th mat-header-cell *matHeaderCellDef> Finalization </th>
+      <td mat-cell *matCellDef="let task"> {{ task.estimatedFinalization || 'N/A' }} </td>
+    </ng-container>
+
+    <!-- Project Column -->
+    <ng-container matColumnDef="project">
+      <th mat-header-cell *matHeaderCellDef> Project </th>
+      <td mat-cell *matCellDef="let task"> {{ task.project?.name || 'N/A' }} </td>
+    </ng-container>
+
+    <!-- Assigned User Column -->
+    <ng-container matColumnDef="assignedUser">
+      <th mat-header-cell *matHeaderCellDef> Assigned User </th>
+      <td mat-cell *matCellDef="let task"> {{ task.assignedUser?.name || 'Unassigned' }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['title', 'description', 'pickedAt', 'estimatedDuration', 'estimatedFinalization', 'project', 'assignedUser']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['title', 'description', 'pickedAt', 'estimatedDuration', 'estimatedFinalization', 'project', 'assignedUser'];" cdkDrag></tr>
+  </table>

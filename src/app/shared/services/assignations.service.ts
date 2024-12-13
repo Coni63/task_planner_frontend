@@ -11,4 +11,8 @@ export class AssignationsService {
   getMyAssignations() {
     return this.httpClient.get<Task[]>('/api/auth/myself/tasks/');
   }
+
+  getAllTasks() {
+    return this.httpClient.get<Task[]>('/api/tasks/');
+  }
 }

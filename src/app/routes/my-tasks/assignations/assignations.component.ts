@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { PageHeaderComponent } from '@shared';
 import { SingleTaskCardComponent } from '@shared/components/single-task-card/single-task-card.component';
-import { AssignationsService } from './assignations.service';
+import { AssignationsService } from '../../../shared/services/assignations.service';
 import { Task } from '@shared/interfaces/interfaces';
 
 @Component({
