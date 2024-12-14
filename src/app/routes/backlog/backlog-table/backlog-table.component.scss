@@ -21,3 +21,8 @@ th {
 tr.mat-header-row {
   background-color: #e0e0e0;
 }
+
+.align-right {
+  display: flex;
+  justify-content: flex-end;
+}

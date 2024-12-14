@@ -172,3 +172,10 @@ export interface ScheduleOverride {
   date: string; // ISO date string
   factor: number; // Override work factor (e.g., 1.0 for full-time)
 }
+
+export interface ApiResponse {
+  total: number;
+  filtered: number;
+  offset: number;
+  items: Task[];
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { PageHeaderComponent } from '@shared';
 
 @Component({
@@ -6,13 +7,10 @@ import { PageHeaderComponent } from '@shared';
   templateUrl: './backlog-metrics.component.html',
   styleUrl: './backlog-metrics.component.scss',
   standalone: true,
-  imports: [PageHeaderComponent]
+  imports: [PageHeaderComponent, TranslateModule],
 })
 export class BacklogBacklogMetricsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

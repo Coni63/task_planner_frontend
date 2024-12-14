@@ -1,3 +1,28 @@
 <page-header></page-header>
 
-<p>backlog-history works!</p>
+<table datatable [dtOptions]="dtOptions" class="row-border hover">
+    <thead>
+      <tr>
+        <th>title</th>
+        <th>pickedAt</th>
+        <th>estimatedDuration</th>
+        <th>estimatedFinalization</th>
+        <th>project</th>
+        <th>assignedUser</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    </tbody>
+    <tfoot>
+        <tr>
+          <th><input type="text" placeholder="Search Title" name="search-title"/></th>
+          <th><input type="text" placeholder="Search pickedAt" name="search-pickedAt"/></th>
+          <th><input type="text" placeholder="Search estimatedDuration" name="search-estimatedDuration"/></th>
+          <th><input type="text" placeholder="Search estimatedFinalization" name="search-estimatedFinalization"/></th>
+          <th><input type="text" placeholder="Search project" name="search-project"/></th>
+          <!-- <th><input type="number" placeholder="Search age" name="search-age"/></th> -->
+           <th></th>
+        </tr>
+    </tfoot>
+  </table>
