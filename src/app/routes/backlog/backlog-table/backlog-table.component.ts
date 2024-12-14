@@ -55,6 +55,8 @@ export class BacklogBacklogTableComponent implements OnInit {
           .map((task, index) => ({ ...task, title: `Task ${index + 1}` }));
         this.cdr.markForCheck();
         this.table.renderRows();
+
+        this.openCreateTaskModal(); // TODO: remove
       },
       err => console.log(err) // TODO: handle error
     );

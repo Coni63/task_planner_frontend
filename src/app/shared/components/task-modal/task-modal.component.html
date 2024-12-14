@@ -1,10 +1,79 @@
 <h2 mat-dialog-title>Hi</h2>
+
 <mat-dialog-content>
-  <p>What's your favorite animal?</p>
-  <mat-form-field>
-    <mat-label>Favorite Animal</mat-label>
-    <input matInput [(ngModel)]="test" />
-  </mat-form-field>
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option *ngFor="let status of statuses" [value]="status.id">{{ status.status }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Project</mat-label>
+      <mat-select formControlName="project">
+        <mat-option *ngFor="let project of projects" [value]="project.id">{{ project.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.title }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Reference</mat-label>
+      <input matInput formControlName="reference" />
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Reference Link</mat-label>
+      <input matInput formControlName="referenceLink" />
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Comments</mat-label>
+      <textarea matInput formControlName="comments"></textarea>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Estimated Duration</mat-label>
+      <input matInput formControlName="estimatedDuration" placeholder="e.g., 5 00:00:00" />
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Expected Finalization</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="expectedFinalization" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Picked By</mat-label>
+      <mat-select formControlName="pickedBy">
+        <mat-option *ngFor="let user of users" [value]="user.id">{{ user.user.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Reserved For User</mat-label>
+      <mat-select formControlName="reservedForUser">
+        <mat-option *ngFor="let user of users" [value]="user.user.id">{{ user.user.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Dependencies</mat-label>
+      <mat-select formControlName="dependencies" multiple>
+        <mat-option *ngFor="let task of tasks" [value]="task.id">{{ task.reference }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+    <button mat-button (click)="dialogRef.close()">Cancel</button>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>

@@ -111,17 +111,19 @@ export interface Status {
  */
 export interface Task {
   id: string;
-  title: string;
-  description: string | null;
   status: Status;
   project: Project;
-  assignedUser: CustomUser | null;
+  category: Category | null;
+  reference: string;
+  referenceLink: string | null;
+  comments: string | null;
   pickedAt: string | null; // ISO date string
   estimatedDuration: string | null; // ISO 8601 duration (e.g., 'P1D' for one day)
   expectedFinalization: string | null; // ISO date string
-  estimatedFinalization: string | null; // ISO date string
-  category: Category | null;
-  dependencies: string[]; // List of dependent task ids
+  order: number | null;
+  pickedBy: CustomUser | null;
+  reservedForUser: CustomUser | null;
+  dependencies: Task[]; // List of dependent task ids
 }
 
 /**
@@ -129,16 +131,19 @@ export interface Task {
  */
 export interface TaskSimple {
   id: string;
-  title: string;
-  description: string | null;
   status: string; // Only the status id
   project: string; // Only the project id
-  assignedUser: string | null; // Only the user id
-  pickedAt: string | null; // ISO date string
-  estimatedDuration: string; // ISO 8601 duration
-  expectedFinalization: string | null; // ISO date string
-  estimatedFinalization: string | null; // ISO date string
   category: string | null; // Only the category id
+  reference: string;
+  referenceLink: string | null;
+  comments: string | null;
+  pickedAt: string | null; // ISO date string
+  assignedUser: string | null; // Only the user id
+  estimatedDuration: string | null; // ISO 8601 duration
+  expectedFinalization: string | null; // ISO date string
+  order: number | null;
+  pickedBy: CustomUser | null;
+  reservedForUser: CustomUser | null;
   dependencies: string[]; // List of dependent task ids
 }
 

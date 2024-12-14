@@ -1,6 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Task, ApiResponse } from '@shared/interfaces/interfaces';
+import {
+  Task,
+  ApiResponse,
+  Status,
+  Project,
+  UserAssignment,
+  Category,
+} from '@shared/interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -12,11 +19,30 @@ export class AssignationsService {
     return this.httpClient.get<Task[]>('/api/auth/myself/tasks/');
   }
 
-  getAllTasks() {
+  getAllTasks(project_id?: string) {
+    if (project_id) {
+      return this.httpClient.get<Task[]>(`/api/tasks/?project=${project_id}`);
+    }
     return this.httpClient.get<Task[]>('/api/tasks/');
   }
 
   getHistory(dataTablesParameters: any) {
     return this.httpClient.post<ApiResponse>('/api/tasks-history/', dataTablesParameters);
+  }
+
+  getAllStatus() {
+    return this.httpClient.get<Status[]>('/api/status/');
+  }
+
+  getAllProjects() {
+    return this.httpClient.get<Project[]>('/api/projects/');
+  }
+
+  getAllCategories() {
+    return this.httpClient.get<Category[]>('/api/categories/');
+  }
+
+  getUserAssignments() {
+    return this.httpClient.get<UserAssignment[]>('/api/user-assignement/');
   }
 }
