@@ -80,33 +80,36 @@ export class TaskModalComponent {
       statuses: this.assignationsService.getAllStatus(),
       categories: this.assignationsService.getAllCategories(),
       tasks: this.assignationsService.getAllTasks(),
-    }).subscribe(({ projects, statuses, categories, tasks }) => {
+      users: this.assignationsService.getUserAssignments(),
+    }).subscribe(({ projects, statuses, categories, tasks, users }) => {
       this.projects = projects;
       this.statuses = statuses;
       this.categories = categories;
       this.tasks = tasks;
+      this.users = users;
 
       console.log('Projects:', projects);
       console.log('Statuses:', statuses);
       console.log('Categories:', categories);
       console.log('Tasks:', tasks);
+      console.log('Users:', users);
 
-      // if (this.data) {
-      //   this.taskForm.patchValue({
-      //     status: this.data.status?.id,
-      //     project: this.data.project?.id,
-      //     category: this.data.category?.id,
-      //     reference: this.data.reference,
-      //     referenceLink: this.data.referenceLink,
-      //     comments: this.data.comments,
-      //     pickedAt: this.data.pickedAt,
-      //     estimatedDuration: this.data.estimatedDuration,
-      //     expectedFinalization: this.data.expectedFinalization,
-      //     pickedBy: this.data.pickedBy,
-      //     reservedForUser: this.data.reservedForUser,
-      //     dependencies: this.data.dependencies.map(dep => dep.id),
-      //   });
-      // }
+      if (this.data) {
+        this.taskForm.patchValue({
+          status: this.data.status?.id,
+          project: this.data.project?.id,
+          category: this.data.category?.id,
+          reference: this.data.reference,
+          referenceLink: this.data.referenceLink,
+          comments: this.data.comments,
+          pickedAt: this.data.pickedAt,
+          estimatedDuration: this.data.estimatedDuration,
+          expectedFinalization: this.data.expectedFinalization,
+          pickedBy: this.data.pickedBy,
+          reservedForUser: this.data.reservedForUser,
+          dependencies: this.data.dependencies.map(dep => dep.id),
+        });
+      }
     });
   }
 

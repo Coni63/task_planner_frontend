@@ -45,4 +45,11 @@ export class AssignationsService {
   getUserAssignments() {
     return this.httpClient.get<UserAssignment[]>('/api/user-assignement/');
   }
+
+  createOrUpdateCategory(category: Category) {
+    if (category.id) {
+      return this.httpClient.put<Category>(`/api/categories/${category.id}/`, category);
+    }
+    return this.httpClient.post<Category>('/api/categories/', category);
+  }
 }

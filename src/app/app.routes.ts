@@ -65,6 +65,7 @@ export const routes: Routes = [
         path: 'my-teams',
         loadChildren: () => import('./routes/my-teams/my-teams.routes').then(m => m.routes),
       },
+      { path: 'configuration', loadChildren: () => import('./routes/configuration/configuration.routes').then(m => m.routes) },
     ],
   },
   {

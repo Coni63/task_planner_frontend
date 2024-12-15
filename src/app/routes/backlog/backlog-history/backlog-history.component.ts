@@ -54,8 +54,8 @@ export class BacklogBacklogHistoryComponent implements OnInit {
       },
       columns: [
         {
-          title: 'Title',
-          data: 'title',
+          title: 'Reference',
+          data: 'reference',
         },
         {
           title: 'pickedAt',

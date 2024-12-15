@@ -84,7 +84,13 @@
     "backlog.backlog-table": "Tasks Table",
     "backlog.backlog-gantt": "Gantt Chart",
     "backlog.backlog-history": "History",
-    "team-members": "My Team"
+    "my-teams": "My Team",
+    "my-teams.team-members": "Team Members",
+    "my-teams.team-availability": "Team Availability",
+    "configuration": "Configuration",
+    "configuration.categories": "Categories",
+    "configuration.projects": "Projects",
+    "configuration.status": "Status"
   },
   "validation": {
     "required": "This field is required",
