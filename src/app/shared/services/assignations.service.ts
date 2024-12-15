@@ -52,4 +52,18 @@ export class AssignationsService {
     }
     return this.httpClient.post<Category>('/api/categories/', category);
   }
+
+  createOrUpdateStatus(status: Status) {
+    if (status.id) {
+      return this.httpClient.put<Status>(`/api/status/${status.id}/`, status);
+    }
+    return this.httpClient.post<Status>('/api/status/', status);
+  }
+
+  createOrUpdateProject(project: Project) {
+    if (project.id) {
+      return this.httpClient.put<Project>(`/api/projects/${project.id}/`, project);
+    }
+    return this.httpClient.post<Project>('/api/projects/', project);
+  }
 }

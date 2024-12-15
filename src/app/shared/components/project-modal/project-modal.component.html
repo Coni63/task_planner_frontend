@@ -1,1 +1,27 @@
-<p>project-modal works!</p>
+<h2 mat-dialog-title>Hi</h2>
+
+<form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+<mat-dialog-content>
+
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Project</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+    </p>
+
+    <p>
+        <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" ></textarea>
+        </mat-form-field>
+    </p>
+
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <!-- <button mat-button (click)="onNoClick()">No Thanks</button> -->
+    <!-- <button mat-button [mat-dialog-close]="onNoClick()" cdkFocusInitial>Ok</button> -->
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+  </mat-dialog-actions>
+</form>

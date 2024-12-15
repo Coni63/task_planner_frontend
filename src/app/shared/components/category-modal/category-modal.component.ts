@@ -91,6 +91,6 @@ export class CategoryModalComponent {
   }
 
   onNoClick(): void {
-    this.dialogRef.close({});
+    this.dialogRef.close();
   }
 }

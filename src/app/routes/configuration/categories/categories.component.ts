@@ -69,6 +69,10 @@ export class ConfigurationCategoriesComponent implements OnInit {
       console.log('The dialog was closed');
       console.log(result);
 
+      if (!result) {
+        return;
+      }
+
       this.categories.push(result);
       this.cdr.markForCheck();
       this.table.renderRows();
