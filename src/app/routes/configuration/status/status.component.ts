@@ -97,4 +97,18 @@ export class ConfigurationStatusComponent implements OnInit {
       this.table.renderRows();
     });
   }
+
+  deleteStatus(status: Status) {
+    if (window.confirm('Are sure you want to delete this project ?')) {
+      this.assignationsService.deleteStatus(status).subscribe({
+        next: res => {
+          this.statuses = this.statuses.filter(s => s.id !== status.id);
+          this.cdr.markForCheck();
+          this.table.renderRows();
+        },
+        error: e => console.error(e),
+        complete: () => console.info('complete'),
+      });
+    }
+  }
 }

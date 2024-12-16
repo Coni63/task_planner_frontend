@@ -56,6 +56,7 @@ export class ProjectModalComponent {
     id: [null],
     name: [null, [Validators.required, Validators.maxLength(255)]],
     description: [null],
+    trigram: [null, [Validators.required, Validators.pattern(/^[A-Z0-9]{3}$/)]],
   });
 
   ngOnInit(): void {

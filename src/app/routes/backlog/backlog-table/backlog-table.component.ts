@@ -50,9 +50,11 @@ export class BacklogBacklogTableComponent implements OnInit {
   ngOnInit() {
     this.assignationsService.getAllTasks().subscribe(
       res => {
-        this.tasks = Array(20)
-          .fill(res[0])
-          .map((task, index) => ({ ...task, title: `Task ${index + 1}` }));
+        // this.tasks = Array(20)
+        //   .fill(res[0])
+        //   .map((task, index) => ({ ...task, title: `Task ${index + 1}` }));
+
+        this.tasks = res;
         this.cdr.markForCheck();
         this.table.renderRows();
 

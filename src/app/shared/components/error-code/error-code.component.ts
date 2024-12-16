@@ -14,4 +14,5 @@ export class ErrorCodeComponent {
   @Input() code = '';
   @Input() title = '';
   @Input() message = '';
+  @Input() redirect = '/';
 }

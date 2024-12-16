@@ -1,9 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,19 +20,19 @@ import {
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Category, Project, Status, Task, UserAssignment } from '@shared/interfaces/interfaces';
+import { Status } from '@shared/interfaces/interfaces';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AssignationsService } from '@shared/services/assignations.service';
-import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { CommonModule } from '@angular/common';
-import { MatCheckbox } from '@angular/material/checkbox';
+import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
 
 @Component({
   selector: 'app-status-modal',
   standalone: true,
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
@@ -41,9 +43,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
     MatDialogClose,
     MatSelectModule,
     MatDatepickerModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatCheckbox,
+    MatRadioModule,
   ],
   templateUrl: './status-modal.component.html',
   styleUrl: './status-modal.component.scss',
@@ -57,7 +57,7 @@ export class StatusModalComponent {
   statusForm: FormGroup = this.fb.group({
     id: [null],
     status: [null, Validators.required],
-    activeState: [false],
+    state: ['blocked'],
   });
 
   ngOnInit(): void {
@@ -65,7 +65,7 @@ export class StatusModalComponent {
       this.statusForm.patchValue({
         id: this.data.id,
         status: this.data.status,
-        activeState: this.data.activeState,
+        state: this.data.state,
       });
     }
   }

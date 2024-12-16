@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Hi</h2>
+<h2 mat-dialog-title>Task</h2>
 
 <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
 <mat-dialog-content>
@@ -19,9 +19,7 @@
           <mat-option *ngFor="let project of projects" [value]="project.id">{{ project.name }}</mat-option>
         </mat-select>
       </mat-form-field>
-    </p>
 
-    <p>
       <mat-form-field appearance="fill">
         <mat-label>Category</mat-label>
         <mat-select formControlName="category">
@@ -35,9 +33,7 @@
         <mat-label>Reference</mat-label>
         <input matInput formControlName="reference" />
       </mat-form-field>
-    </p>
 
-    <p>
       <mat-form-field appearance="fill">
         <mat-label>Reference Link</mat-label>
         <input matInput formControlName="referenceLink" />
@@ -56,9 +52,7 @@
         <mat-label>Estimated Duration</mat-label>
         <input matInput formControlName="estimatedDuration" placeholder="e.g., 5 00:00:00" />
       </mat-form-field>
-    </p>
 
-    <p>
       <mat-form-field appearance="fill">
         <mat-label>Expected Finalization</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="expectedFinalization" />
@@ -74,9 +68,7 @@
           <mat-option *ngFor="let user of users" [value]="user.id">{{ user.user.name }}</mat-option>
         </mat-select>
       </mat-form-field>
-    </p>
 
-    <p>
       <mat-form-field appearance="fill">
         <mat-label>Reserved For User</mat-label>
         <mat-select formControlName="reservedForUser">

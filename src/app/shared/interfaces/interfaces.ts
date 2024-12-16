@@ -95,6 +95,7 @@ export interface Project {
   id: string;
   name: string;
   description: string | null;
+  trigram: string[3] | null;
 }
 
 /**
@@ -103,7 +104,7 @@ export interface Project {
 export interface Status {
   id: string;
   status: string;
-  activeState: boolean;
+  state: 'pending' | 'active' | 'closed' | 'blocked';
 }
 
 /**

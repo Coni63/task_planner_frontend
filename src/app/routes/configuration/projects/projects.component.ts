@@ -54,8 +54,6 @@ export class ConfigurationProjectsComponent implements OnInit {
         this.projects = res;
         this.cdr.markForCheck();
         this.table.renderRows();
-
-        // this.openCreateCategoryModal(); // TODO: remove
       },
       error: e => console.error(e),
       complete: () => console.info('complete'),
@@ -82,9 +80,9 @@ export class ConfigurationProjectsComponent implements OnInit {
     });
   }
 
-  editProjectModal(category: Category): void {
+  editProjectModal(project: Project): void {
     const dialogRef = this.dialog.open(ProjectModalComponent, {
-      data: category,
+      data: project,
       disableClose: true,
     });
 
@@ -100,5 +98,19 @@ export class ConfigurationProjectsComponent implements OnInit {
       this.cdr.markForCheck();
       this.table.renderRows();
     });
+  }
+
+  deleteProject(project: Project) {
+    if (window.confirm('Are sure you want to delete this project ?')) {
+      this.assignationsService.deleteProject(project).subscribe({
+        next: res => {
+          this.projects = this.projects.filter(p => p.id !== project.id);
+          this.cdr.markForCheck();
+          this.table.renderRows();
+        },
+        error: e => console.error(e),
+        complete: () => console.info('complete'),
+      });
+    }
   }
 }

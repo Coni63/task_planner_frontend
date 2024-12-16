@@ -1,7 +1,14 @@
-<h2 mat-dialog-title>Hi</h2>
+<h2 mat-dialog-title>Project</h2>
 
 <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
 <mat-dialog-content>
+
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Trigram</mat-label>
+        <input matInput formControlName="trigram" />
+      </mat-form-field>
+    </p>
 
     <p>
       <mat-form-field appearance="fill">

@@ -7,6 +7,7 @@ import {
   Project,
   UserAssignment,
   Category,
+  TaskSimple,
 } from '@shared/interfaces/interfaces';
 
 @Injectable({
@@ -65,5 +66,24 @@ export class AssignationsService {
       return this.httpClient.put<Project>(`/api/projects/${project.id}/`, project);
     }
     return this.httpClient.post<Project>('/api/projects/', project);
+  }
+
+  deleteProject(project: Project) {
+    return this.httpClient.delete<Project>(`/api/projects/${project.id}/`);
+  }
+
+  deleteCategory(category: Category) {
+    return this.httpClient.delete<Category>(`/api/categories/${category.id}/`);
+  }
+
+  deleteStatus(status: Status) {
+    return this.httpClient.delete<Status>(`/api/status/${status.id}/`);
+  }
+
+  createOrUpdateTask(task: TaskSimple) {
+    if (task.id) {
+      return this.httpClient.put<Task>(`/api/tasks/${task.id}/`, task);
+    }
+    return this.httpClient.post<Task>('/api/tasks/', task);
   }
 }

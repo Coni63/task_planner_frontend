@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Hi</h2>
+<h2 mat-dialog-title>Status</h2>
 
 <form [formGroup]="statusForm" (ngSubmit)="onSubmit()">
 <mat-dialog-content>
@@ -11,10 +11,14 @@
     </p>
 
     <p>
-            <mat-checkbox formControlName="activeState">
-                Active State
-              </mat-checkbox>
-    </p>
+
+      <mat-radio-group formControlName="state">
+        <mat-radio-button value="pending">Pending</mat-radio-button>
+        <mat-radio-button value="active">Active</mat-radio-button>
+        <mat-radio-button value="closed">Closed</mat-radio-button>
+        <mat-radio-button value="blocked">Blocked</mat-radio-button>
+      </mat-radio-group>
+    </p>       
 
   </mat-dialog-content>
   <mat-dialog-actions>

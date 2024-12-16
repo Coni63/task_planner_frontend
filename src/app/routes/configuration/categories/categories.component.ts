@@ -51,8 +51,6 @@ export class ConfigurationCategoriesComponent implements OnInit {
         this.categories = res;
         this.cdr.markForCheck();
         this.table.renderRows();
-
-        // this.openCreateCategoryModal(); // TODO: remove
       },
       error: e => console.error(e),
       complete: () => console.info('complete'),
@@ -97,5 +95,19 @@ export class ConfigurationCategoriesComponent implements OnInit {
       this.cdr.markForCheck();
       this.table.renderRows();
     });
+  }
+
+  deleteCategory(category: Category) {
+    if (window.confirm('Are sure you want to delete this project ?')) {
+      this.assignationsService.deleteCategory(category).subscribe({
+        next: res => {
+          this.categories = this.categories.filter(c => c.id !== category.id);
+          this.cdr.markForCheck();
+          this.table.renderRows();
+        },
+        error: e => console.error(e),
+        complete: () => console.info('complete'),
+      });
+    }
   }
 }

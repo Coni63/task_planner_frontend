@@ -1,8 +1,14 @@
 <page-header></page-header>
 
 <section>
-    @for(task of myTasks; track task) {
-        <app-single-task-card [task]="task"></app-single-task-card>
+    @if (loading) {
+        <app-loading></app-loading>
+    } @else {
+        @for(task of myTasks; track task) {
+            <app-single-task-card [task]="task"></app-single-task-card>
+        } @empty {
+            <error-code title="No pending task, well done !" redirect=''></error-code>
+        }
     }
 </section>
 

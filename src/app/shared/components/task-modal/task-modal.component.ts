@@ -62,13 +62,13 @@ export class TaskModalComponent {
     status: [null, Validators.required],
     project: [null, Validators.required],
     category: [null],
-    reference: ['', Validators.required],
-    referenceLink: ['', Validators.pattern(/https?:\/\/.+/)], // Valid URL pattern
-    comments: [''],
+    reference: [null, Validators.required],
+    referenceLink: [null, [Validators.pattern(/https?:\/\/.+/), Validators.nullValidator]], // Valid URL pattern
+    comments: [null],
     pickedAt: [{ value: null, disabled: true }], // Read-only field
-    estimatedDuration: ['', Validators.required], // Custom input logic may be required for interval format
-    expectedFinalization: [null, Validators.required],
-    pickedBy: [null],
+    estimatedDuration: [1, Validators.required], // Custom input logic may be required for interval format
+    expectedFinalization: [null],
+    pickedBy: [null, Validators.nullValidator],
     reservedForUser: [null],
     dependencies: [[]], // Multi-select for task dependencies
   });
@@ -117,6 +117,17 @@ export class TaskModalComponent {
     if (this.taskForm.valid) {
       console.log('Form Data:', this.taskForm.value);
       // Emit or handle form submission logic here
+      this.assignationsService.createOrUpdateTask(this.taskForm.value).subscribe({
+        next: (response: Task) => {
+          this.dialogRef.close(response);
+        },
+        error: (error: any) => {
+          console.error('Error creating category:', error);
+        },
+        complete: () => {
+          console.log('complete');
+        },
+      });
     } else {
       console.log('Form is invalid');
     }
