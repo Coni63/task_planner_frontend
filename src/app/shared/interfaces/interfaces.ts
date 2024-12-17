@@ -56,6 +56,7 @@ export interface CustomUser {
   roles: string[];
   permissions: string[];
   avatar: string;
+  categories: UserAssignmentNoUser[];
 }
 
 /**
@@ -74,6 +75,13 @@ export interface Category {
 export interface UserAssignment {
   id: string;
   user: CustomUser;
+  category: Category;
+  level: 'Blocked' | 'Junior' | 'Medior' | 'Senior';
+}
+
+export interface UserAssignmentNoUser {
+  id: string;
+  user: string;
   category: Category;
   level: 'Blocked' | 'Junior' | 'Medior' | 'Senior';
 }

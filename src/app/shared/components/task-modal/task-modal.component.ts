@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -46,7 +46,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './task-modal.component.html',
   styleUrl: './task-modal.component.scss',
 })
-export class TaskModalComponent {
+export class TaskModalComponent implements OnInit {
   readonly dialogRef = inject(MatDialogRef<TaskModalComponent>);
   readonly data = inject<Task>(MAT_DIALOG_DATA);
   readonly fb = inject(FormBuilder);

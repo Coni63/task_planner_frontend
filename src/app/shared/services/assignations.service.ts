@@ -8,6 +8,7 @@ import {
   UserAssignment,
   Category,
   TaskSimple,
+  CustomUser,
 } from '@shared/interfaces/interfaces';
 
 @Injectable({
@@ -85,5 +86,19 @@ export class AssignationsService {
       return this.httpClient.put<Task>(`/api/tasks/${task.id}/`, task);
     }
     return this.httpClient.post<Task>('/api/tasks/', task);
+  }
+
+  getAllMembers() {
+    return this.httpClient.get<CustomUser[]>('/api/users/');
+  }
+
+  createOrUpdateAssignment(assignment: UserAssignment) {
+    if (assignment.id) {
+      return this.httpClient.put<UserAssignment>(
+        `/api/user-assignement/${assignment.id}/`,
+        assignment
+      );
+    }
+    return this.httpClient.post<UserAssignment>('/api/user-assignement/', assignment);
   }
 }

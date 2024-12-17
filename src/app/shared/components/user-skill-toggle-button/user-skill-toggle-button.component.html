@@ -1,0 +1,21 @@
+<!-- <mat-label>{{assignment.category.title}}:</mat-label>
+<mat-button-toggle-group name="fontStyle" aria-label="Font Style"  formControlName="level" (change)="onChange($event)">
+    <mat-button-toggle value="Blocked">Blocked</mat-button-toggle>
+    <mat-button-toggle value="Junior">Junior</mat-button-toggle>
+    <mat-button-toggle value="Medior">Medior</mat-button-toggle>
+    <mat-button-toggle value="Senior">Senior</mat-button-toggle>
+</mat-button-toggle-group> -->
+
+<form [formGroup]="skillForm">
+    <mat-label>{{assignment.category.title}}:</mat-label>
+    <mat-button-toggle-group 
+      formControlName="level" 
+      (change)="onChange()"
+      name="skillLevel" 
+      aria-label="Skill Level">
+      <mat-button-toggle value="Blocked">Blocked</mat-button-toggle>
+      <mat-button-toggle value="Junior">Junior</mat-button-toggle>
+      <mat-button-toggle value="Medior">Medior</mat-button-toggle>
+      <mat-button-toggle value="Senior">Senior</mat-button-toggle>
+    </mat-button-toggle-group>
+  </form>
