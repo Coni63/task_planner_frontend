@@ -129,10 +129,12 @@ export interface Task {
   pickedAt: string | null; // ISO date string
   estimatedDuration: string | null; // ISO 8601 duration (e.g., 'P1D' for one day)
   expectedFinalization: string | null; // ISO date string
+  estimatedFinalization: string | null;
   order: number | null;
   pickedBy: CustomUser | null;
   reservedForUser: CustomUser | null;
   dependencies: Task[]; // List of dependent task ids
+  atRisk: boolean;
 }
 
 /**
@@ -150,6 +152,7 @@ export interface TaskSimple {
   assignedUser: string | null; // Only the user id
   estimatedDuration: string | null; // ISO 8601 duration
   expectedFinalization: string | null; // ISO date string
+  estimatedFinalization: string | null; // ISO date string
   order: number | null;
   pickedBy: CustomUser | null;
   reservedForUser: CustomUser | null;

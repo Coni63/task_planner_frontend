@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { TaskModalComponent } from '@shared/components/task-modal/task-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { LoadingComponent } from '@shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-backlog-backlog-table',
@@ -33,12 +34,14 @@ import { MatDialog } from '@angular/material/dialog';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
+    LoadingComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BacklogBacklogTableComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<Task[]>;
 
+  loading = true;
   tasks: Task[] = [];
 
   constructor(
@@ -48,24 +51,29 @@ export class BacklogBacklogTableComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.assignationsService.getAllTasks().subscribe(
-      res => {
-        // this.tasks = Array(20)
-        //   .fill(res[0])
-        //   .map((task, index) => ({ ...task, title: `Task ${index + 1}` }));
-
+    this.loading = true;
+    this.assignationsService.getAllTasks().subscribe({
+      next: res => {
         this.tasks = res;
+        this.loading = false;
         this.cdr.markForCheck();
         this.table.renderRows();
 
-        this.openCreateTaskModal(); // TODO: remove
+        // this.openCreateTaskModal(); // TODO: remove
       },
-      err => console.log(err) // TODO: handle error
-    );
+      error: err => console.log(err),
+      complete: () => {
+        console.info('complete');
+      },
+    });
   }
 
   drop(event: CdkDragDrop<Task[]>) {
     moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
+
+    this.tasks.forEach((task, index) => (task.order = index));
+    this.assignationsService.reorderTasks(this.tasks).subscribe();
+
     this.table.renderRows();
   }
 

@@ -101,4 +101,14 @@ export class AssignationsService {
     }
     return this.httpClient.post<UserAssignment>('/api/user-assignement/', assignment);
   }
+
+  reorderTasks(tasks: Task[]) {
+    let data = tasks.map((task, index) => {
+      return {
+        id: task.id,
+        order: index,
+      };
+    });
+    return this.httpClient.put<Task[]>('/api/tasks-order/', data);
+  }
 }

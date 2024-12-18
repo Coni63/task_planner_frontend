@@ -59,6 +59,7 @@ export class TaskModalComponent implements OnInit {
   tasks: Task[] = []; // List of existing tasks for dependency selection
 
   taskForm: FormGroup = this.fb.group({
+    id: [null],
     status: [null, Validators.required],
     project: [null, Validators.required],
     category: [null],
@@ -88,14 +89,9 @@ export class TaskModalComponent implements OnInit {
       this.tasks = tasks;
       this.users = users;
 
-      console.log('Projects:', projects);
-      console.log('Statuses:', statuses);
-      console.log('Categories:', categories);
-      console.log('Tasks:', tasks);
-      console.log('Users:', users);
-
       if (this.data) {
         this.taskForm.patchValue({
+          id: this.data.id,
           status: this.data.status?.id,
           project: this.data.project?.id,
           category: this.data.category?.id,
@@ -134,6 +130,6 @@ export class TaskModalComponent implements OnInit {
   }
 
   onNoClick(): void {
-    this.dialogRef.close({});
+    this.dialogRef.close(null);
   }
 }
