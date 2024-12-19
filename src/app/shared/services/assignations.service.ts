@@ -111,4 +111,12 @@ export class AssignationsService {
     });
     return this.httpClient.put<Task[]>('/api/tasks-order/', data);
   }
+
+  pickNextTask() {
+    return this.httpClient.get<Task>('/api/task-pick/');
+  }
+
+  patchTask(taskId: string, data: any) {
+    return this.httpClient.patch<Task>(`/api/tasks/${taskId}/`, data);
+  }
 }

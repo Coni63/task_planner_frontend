@@ -5,7 +5,7 @@
         <app-loading></app-loading>
     } @else {
         @for(task of myTasks; track task) {
-            <app-single-task-card [task]="task"></app-single-task-card>
+            <app-single-task-card [task]="task" (hold)="holdTask(task)" (close)="closeTask(task)"></app-single-task-card>
         } @empty {
             <error-code title="No pending task, well done !" redirect=''></error-code>
         }
@@ -13,5 +13,5 @@
 </section>
 
 <section class="align-right">
-    <a (click)="pickNextTask()" mat-raised-button>Pick Next Task</a>
+    <a (click)="pickNextTask()" mat-raised-button [disabled]="hasActiveTasks()">Pick Next Task</a>
 </section>

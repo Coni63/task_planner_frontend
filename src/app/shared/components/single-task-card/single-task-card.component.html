@@ -7,9 +7,9 @@
         <p>{{task.comments}}</p>
     </mat-card-content>
     <mat-card-actions align="end" >
-      <button mat-button>Close</button>
+      <button mat-button (click)="closeTask()">Close</button>
       @if (task.status.status != 'On Hold') {
-          <button mat-button>Hold</button>
+          <button mat-button (click)="holdTask()">Hold</button>
       }
     </mat-card-actions>
   </mat-card>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Task } from '@shared/interfaces/interfaces';
@@ -12,4 +12,15 @@ import { Task } from '@shared/interfaces/interfaces';
 })
 export class SingleTaskCardComponent {
   @Input() task!: Task;
+
+  @Output() hold = new EventEmitter();
+  @Output() close = new EventEmitter();
+
+  holdTask() {
+    this.hold.emit(this.task);
+  }
+
+  closeTask() {
+    this.close.emit(this.task);
+  }
 }
