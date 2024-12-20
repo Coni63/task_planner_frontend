@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   Task,
@@ -22,10 +22,13 @@ export class AssignationsService {
   }
 
   getAllTasks(project_id?: string) {
+    const params = new HttpParams();
+
     if (project_id) {
-      return this.httpClient.get<Task[]>(`/api/tasks/?project=${project_id}`);
+      params.set('project', project_id);
     }
-    return this.httpClient.get<Task[]>('/api/tasks/');
+
+    return this.httpClient.get<Task[]>('/api/tasks/', { params: params });
   }
 
   getHistory(dataTablesParameters: any) {

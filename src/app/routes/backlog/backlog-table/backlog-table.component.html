@@ -64,8 +64,8 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="['project', 'reference', 'pickedBy', 'pickedAt', 'estimatedDuration', 'estimatedFinalization', 'expectedFinalization',  'edit']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['project', 'reference', 'pickedBy', 'pickedAt', 'estimatedDuration', 'estimatedFinalization', 'expectedFinalization', 'edit'];" cdkDrag></tr>
-  
+    <tr mat-row *matRowDef="let row; columns: ['project', 'reference', 'pickedBy', 'pickedAt', 'estimatedDuration', 'estimatedFinalization', 'expectedFinalization', 'edit'];" cdkDrag [ngStyle]="{'background-color': isDarkTheme ? row.status.darkColor : row.status.color}"></tr>
+
   </table>
 </section>
 

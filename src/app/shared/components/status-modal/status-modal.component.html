@@ -11,14 +11,27 @@
     </p>
 
     <p>
-
       <mat-radio-group formControlName="state">
         <mat-radio-button value="pending">Pending</mat-radio-button>
         <mat-radio-button value="active">Active</mat-radio-button>
         <mat-radio-button value="closed">Closed</mat-radio-button>
         <mat-radio-button value="blocked">Blocked</mat-radio-button>
       </mat-radio-group>
-    </p>       
+    </p>
+    
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Color</mat-label>
+        <input matInput formControlName="color" />
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Dark Color</mat-label>
+        <input matInput formControlName="darkColor" />
+      </mat-form-field>
+    </p>
 
   </mat-dialog-content>
   <mat-dialog-actions>

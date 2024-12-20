@@ -18,6 +18,8 @@ import { FormsModule } from '@angular/forms';
 import { TaskModalComponent } from '@shared/components/task-modal/task-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { LoadingComponent } from '@shared/components/loading/loading.component';
+import { CommonModule } from '@angular/common';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-backlog-backlog-table',
@@ -26,6 +28,7 @@ import { LoadingComponent } from '@shared/components/loading/loading.component';
   standalone: true,
   imports: [
     PageHeaderComponent,
+    CommonModule,
     CdkDropList,
     CdkDrag,
     MatTableModule,
@@ -43,14 +46,29 @@ export class BacklogBacklogTableComponent implements OnInit {
 
   loading = true;
   tasks: Task[] = [];
+  isDarkTheme: boolean = false;
 
   constructor(
     private assignationsService: AssignationsService,
     private dialog: MatDialog,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private mediaMatcher: MediaMatcher
   ) {}
 
   ngOnInit() {
+    this.checkTheme();
+
+    // Watch for changes to the "theme-dark" class
+    const observer = new MutationObserver(() => {
+      this.checkTheme();
+      this.cdr.detectChanges();
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
     this.loading = true;
     this.assignationsService.getAllTasks().subscribe({
       next: res => {
@@ -58,7 +76,7 @@ export class BacklogBacklogTableComponent implements OnInit {
         this.loading = false;
         this.cdr.markForCheck();
         this.table.renderRows();
-
+        // this.cdr.detectChanges();
         // this.openCreateTaskModal(); // TODO: remove
       },
       error: err => console.log(err),
@@ -75,6 +93,10 @@ export class BacklogBacklogTableComponent implements OnInit {
     this.assignationsService.reorderTasks(this.tasks).subscribe();
 
     this.table.renderRows();
+  }
+
+  checkTheme(): void {
+    this.isDarkTheme = document.documentElement.classList.contains('theme-dark');
   }
 
   openCreateTaskModal(): void {

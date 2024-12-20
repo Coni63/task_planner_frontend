@@ -113,6 +113,8 @@ export interface Status {
   id: string;
   status: string;
   state: 'pending' | 'active' | 'closed' | 'blocked';
+  color: string;
+  darkColor: string;
 }
 
 /**

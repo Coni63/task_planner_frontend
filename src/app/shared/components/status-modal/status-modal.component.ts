@@ -58,6 +58,8 @@ export class StatusModalComponent {
     id: [null],
     status: [null, Validators.required],
     state: ['blocked'],
+    color: ['#ffffff'],
+    darkColor: ['#000000'],
   });
 
   ngOnInit(): void {
@@ -66,6 +68,8 @@ export class StatusModalComponent {
         id: this.data.id,
         status: this.data.status,
         state: this.data.state,
+        color: this.data.color,
+        darkColor: this.data.darkColor,
       });
     }
   }
