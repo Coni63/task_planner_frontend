@@ -80,7 +80,7 @@ export class TaskModalComponent implements OnInit {
       projects: this.assignationsService.getAllProjects(),
       statuses: this.assignationsService.getAllStatus(),
       categories: this.assignationsService.getAllCategories(),
-      tasks: this.assignationsService.getAllTasks(),
+      tasks: this.assignationsService.getAllTasks('', false, ['active', 'blocked', 'pending']),
       users: this.assignationsService.getUserAssignments(),
     }).subscribe(({ projects, statuses, categories, tasks, users }) => {
       this.projects = projects;

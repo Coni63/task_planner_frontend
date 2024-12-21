@@ -18,17 +18,26 @@ export class AssignationsService {
   constructor(private httpClient: HttpClient) {}
 
   getMyAssignations() {
-    return this.httpClient.get<Task[]>('/api/auth/myself/tasks/');
+    console.log('getMyAssignations');
+    return this.getAllTasks('', true, ['active', 'blocked']);
   }
 
-  getAllTasks(project_id?: string) {
-    const params = new HttpParams();
-
+  getAllTasks(project_id: string, me: boolean, states: string[]) {
+    let params = new HttpParams();
+    console.log(project_id, me, states);
     if (project_id) {
-      params.set('project', project_id);
+      params = params.append('project', project_id);
+    }
+    if (me) {
+      params = params.append('me', me);
+    }
+    if (states.length) {
+      states.forEach(state => {
+        params = params.append('states', state);
+      });
     }
 
-    return this.httpClient.get<Task[]>('/api/tasks/', { params: params });
+    return this.httpClient.get<Task[]>('/api/tasks/', { params });
   }
 
   getHistory(dataTablesParameters: any) {

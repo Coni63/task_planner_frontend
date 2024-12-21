@@ -74,8 +74,8 @@ export class BacklogBacklogHistoryComponent implements OnInit {
           data: 'project.name',
         },
         {
-          title: 'assignedUser',
-          data: 'assignedUser.name',
+          title: 'pickedBy',
+          data: 'pickedBy.name',
         },
       ],
     };

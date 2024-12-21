@@ -70,7 +70,7 @@ export class BacklogBacklogTableComponent implements OnInit {
     });
 
     this.loading = true;
-    this.assignationsService.getAllTasks().subscribe({
+    this.assignationsService.getAllTasks('', false, ['pending', 'blocked', 'active']).subscribe({
       next: res => {
         this.tasks = res;
         this.loading = false;
