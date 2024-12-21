@@ -7,6 +7,7 @@ import { Status, Task } from '@shared/interfaces/interfaces';
 import { LoadingComponent } from '../../../shared/components/loading/loading.component';
 import { ErrorCodeComponent } from '../../../shared/components/error-code/error-code.component';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-my-tasks-assignations',
@@ -22,7 +23,10 @@ import { forkJoin } from 'rxjs/internal/observable/forkJoin';
   ],
 })
 export class MyTasksAssignationsComponent implements OnInit {
-  constructor(private assignationsService: AssignationsService) {}
+  constructor(
+    private assignationsService: AssignationsService,
+    private toast: ToastrService
+  ) {}
 
   myTasks: Task[] = [];
   status: Status[] = [];
@@ -47,9 +51,16 @@ export class MyTasksAssignationsComponent implements OnInit {
   pickNextTask() {
     this.assignationsService.pickNextTask().subscribe({
       next: res => {
-        this.myTasks.push(res);
+        if (res) {
+          this.myTasks.push(res);
+        } else {
+          this.toast.info('No task available');
+        }
       },
-      error: err => console.log(err),
+      error: err => {
+        console.log(err);
+        this.toast.error('Error picking task');
+      },
       complete: () => {},
     });
   }
@@ -67,8 +78,16 @@ export class MyTasksAssignationsComponent implements OnInit {
       status: closed_id,
     };
     this.assignationsService.patchTask(task.id, subset).subscribe({
-      next: res => console.log(res),
-      error: err => console.log(err),
+      next: res => {
+        console.log(res);
+        console.log(this.myTasks);
+        let idx = this.myTasks.findIndex(t => t.id === task.id);
+        this.myTasks[idx] = res;
+      },
+      error: err => {
+        console.log(err);
+        this.toast.error('Error picking task');
+      },
       complete: () => {},
     });
   }
@@ -80,7 +99,9 @@ export class MyTasksAssignationsComponent implements OnInit {
       status: closed_id,
     };
     this.assignationsService.patchTask(task.id, subset).subscribe({
-      next: res => console.log(res),
+      next: res => {
+        this.myTasks = this.myTasks.filter(t => t.id !== task.id);
+      },
       error: err => console.log(err),
       complete: () => {},
     });

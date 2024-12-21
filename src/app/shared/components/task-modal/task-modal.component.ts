@@ -66,7 +66,7 @@ export class TaskModalComponent implements OnInit {
     reference: [null, Validators.required],
     referenceLink: [null, [Validators.pattern(/https?:\/\/.+/), Validators.nullValidator]], // Valid URL pattern
     comments: [null],
-    pickedAt: [{ value: null, disabled: true }], // Read-only field
+    pickedAt: [null],
     estimatedDuration: [1, Validators.required], // Custom input logic may be required for interval format
     expectedFinalization: [null],
     pickedBy: [null, Validators.nullValidator],
@@ -101,7 +101,7 @@ export class TaskModalComponent implements OnInit {
           pickedAt: this.data.pickedAt,
           estimatedDuration: this.data.estimatedDuration,
           expectedFinalization: this.data.expectedFinalization,
-          pickedBy: this.data.pickedBy,
+          pickedBy: this.data.pickedBy?.id,
           reservedForUser: this.data.reservedForUser,
           dependencies: this.data.dependencies.map(dep => dep.id),
         });

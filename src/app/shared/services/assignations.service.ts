@@ -125,7 +125,7 @@ export class AssignationsService {
   }
 
   pickNextTask() {
-    return this.httpClient.get<Task>('/api/task-pick/');
+    return this.httpClient.get<Task | null>('/api/task-pick/');
   }
 
   patchTask(taskId: string, data: any) {
