@@ -17,9 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { TaskModalComponent } from '@shared/components/task-modal/task-modal.component';
 import { MatDialog } from '@angular/material/dialog';
-import { LoadingComponent } from '@shared/components/loading/loading.component';
 import { CommonModule } from '@angular/common';
-import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-backlog-backlog-table',
@@ -37,7 +35,6 @@ import { MediaMatcher } from '@angular/cdk/layout';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    LoadingComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -51,14 +48,12 @@ export class BacklogBacklogTableComponent implements OnInit {
   constructor(
     private assignationsService: AssignationsService,
     private dialog: MatDialog,
-    private cdr: ChangeDetectorRef,
-    private mediaMatcher: MediaMatcher
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.checkTheme();
-
     // Watch for changes to the "theme-dark" class
+    this.checkTheme();
     const observer = new MutationObserver(() => {
       this.checkTheme();
       this.cdr.detectChanges();
@@ -76,7 +71,6 @@ export class BacklogBacklogTableComponent implements OnInit {
         this.loading = false;
         this.cdr.markForCheck();
         this.table.renderRows();
-        // this.cdr.detectChanges();
         // this.openCreateTaskModal(); // TODO: remove
       },
       error: err => console.log(err),
@@ -106,8 +100,11 @@ export class BacklogBacklogTableComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
+      if (!result) return;
+
+      this.tasks.push(result);
+      this.cdr.markForCheck();
+      this.table.renderRows();
     });
   }
 
@@ -118,8 +115,11 @@ export class BacklogBacklogTableComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
+      if (!result) return;
+
+      this.tasks = this.tasks.map(t => (t.id === result.id ? result : t));
+      this.cdr.markForCheck();
+      this.table.renderRows();
     });
   }
 }

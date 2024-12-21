@@ -57,6 +57,7 @@ export class TaskModalComponent implements OnInit {
   statuses: Status[] = []; // List of statuses for the dropdown
   categories: Category[] = []; // List of categories for the dropdown
   tasks: Task[] = []; // List of existing tasks for dependency selection
+  possibleUsers: UserAssignment[] = []; // List of users for the dropdown
 
   taskForm: FormGroup = this.fb.group({
     id: [null],
@@ -89,6 +90,10 @@ export class TaskModalComponent implements OnInit {
       this.tasks = tasks;
       this.users = users;
 
+      if (this.data.id) {
+        this.tasks = this.tasks.filter(task => task.id !== this.data.id);
+      }
+
       if (this.data) {
         this.taskForm.patchValue({
           id: this.data.id,
@@ -105,6 +110,7 @@ export class TaskModalComponent implements OnInit {
           reservedForUser: this.data.reservedForUser,
           dependencies: this.data.dependencies.map(dep => dep.id),
         });
+        this.filterPossibleUsers();
       }
     });
   }
@@ -131,5 +137,24 @@ export class TaskModalComponent implements OnInit {
 
   onNoClick(): void {
     this.dialogRef.close(null);
+  }
+
+  onCategoryChange(event: any): void {
+    this.unassignUser();
+    this.filterPossibleUsers();
+  }
+
+  filterPossibleUsers(): void {
+    let categoryId = this.taskForm.value.category;
+    console.log('Category:', categoryId);
+    if (!categoryId) {
+      this.possibleUsers = this.users;
+    } else {
+      this.possibleUsers = this.users.filter(user => user.category.id == categoryId);
+    }
+  }
+
+  unassignUser(): void {
+    this.taskForm.patchValue({ pickedBy: null, reservedForUser: null });
   }
 }

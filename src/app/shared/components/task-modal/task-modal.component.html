@@ -22,7 +22,7 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Category</mat-label>
-        <mat-select formControlName="category">
+        <mat-select formControlName="category" (selectionChange)="onCategoryChange($event)">
           <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.title }}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -65,14 +65,16 @@
       <mat-form-field appearance="fill">
         <mat-label>Picked By</mat-label>
         <mat-select formControlName="pickedBy">
-          <mat-option *ngFor="let user of users" [value]="user.id">{{ user.user.name }}</mat-option>
+          <mat-option value="">Unassigned</mat-option>
+          <mat-option *ngFor="let user of possibleUsers" [value]="user.user.id">{{ user.user.name }}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Reserved For User</mat-label>
         <mat-select formControlName="reservedForUser">
-          <mat-option *ngFor="let user of users" [value]="user.user.id">{{ user.user.name }}</mat-option>
+          <mat-option value="">Unassigned</mat-option>
+          <mat-option *ngFor="let user of possibleUsers" [value]="user.user.id">{{ user.user.name }}</mat-option>
         </mat-select>
       </mat-form-field>
     </p>
