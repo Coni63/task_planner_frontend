@@ -53,8 +53,8 @@ export class ConfigurationStatusComponent implements OnInit {
         this.cdr.markForCheck();
         this.table.renderRows();
       },
-      error: e => console.error(e),
-      complete: () => console.info('complete'),
+      error: e => {},
+      complete: () => {},
     });
   }
 
@@ -65,9 +65,6 @@ export class ConfigurationStatusComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-
       if (!result) {
         return;
       }
@@ -85,9 +82,6 @@ export class ConfigurationStatusComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-
       const index = this.statuses.findIndex(status => status.id === result.id);
       if (index !== -1) {
         this.statuses[index] = result;
@@ -106,8 +100,8 @@ export class ConfigurationStatusComponent implements OnInit {
           this.cdr.markForCheck();
           this.table.renderRows();
         },
-        error: e => console.error(e),
-        complete: () => console.info('complete'),
+        error: e => {},
+        complete: () => {},
       });
     }
   }

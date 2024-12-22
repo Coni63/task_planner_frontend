@@ -76,12 +76,17 @@ export class TaskModalComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    let current_project = this.data?.project?.id;
     // Fetch users, projects, statuses, categories, and tasks data
     forkJoin({
       projects: this.assignationsService.getAllProjects(),
       statuses: this.assignationsService.getAllStatus(),
       categories: this.assignationsService.getAllCategories(),
-      tasks: this.assignationsService.getAllTasks('', false, ['active', 'blocked', 'pending']),
+      tasks: this.assignationsService.getAllTasks(current_project, false, [
+        'active',
+        'blocked',
+        'pending',
+      ]),
       users: this.assignationsService.getUserAssignments(),
     }).subscribe(({ projects, statuses, categories, tasks, users }) => {
       this.projects = projects;
@@ -90,7 +95,7 @@ export class TaskModalComponent implements OnInit {
       this.tasks = tasks;
       this.users = users;
 
-      if (this.data.id) {
+      if (this.data?.id) {
         this.tasks = this.tasks.filter(task => task.id !== this.data.id);
       }
 
@@ -123,15 +128,9 @@ export class TaskModalComponent implements OnInit {
         next: (response: Task) => {
           this.dialogRef.close(response);
         },
-        error: (error: any) => {
-          console.error('Error creating category:', error);
-        },
-        complete: () => {
-          console.log('complete');
-        },
+        error: (error: any) => {},
+        complete: () => {},
       });
-    } else {
-      console.log('Form is invalid');
     }
   }
 
@@ -139,14 +138,45 @@ export class TaskModalComponent implements OnInit {
     this.dialogRef.close(null);
   }
 
+  onProjectChange(event: any): void {
+    let projectId = this.taskForm.value.project;
+
+    this.assignationsService
+      .getAllTasks(projectId, false, ['active', 'blocked', 'pending'])
+      .subscribe({
+        next: (tasks: Task[]) => {
+          this.tasks = tasks;
+          if (this.data?.id) {
+            this.tasks = this.tasks.filter(task => task.id !== this.data.id);
+          }
+        },
+        error: (error: any) => {},
+        complete: () => {},
+      });
+  }
+
   onCategoryChange(event: any): void {
     this.unassignUser();
     this.filterPossibleUsers();
   }
 
+  onPickedByChange(event: any): void {
+    let pickedBy = this.taskForm.value.pickedBy;
+    let statusId = this.taskForm.value.status;
+    let state = this.statuses.find(status => status.id == statusId)?.state;
+
+    if (state == 'pending' && pickedBy) {
+      let inPogressStatus = this.statuses.find(status => status.status == 'In Progress')?.id;
+      this.taskForm.patchValue({ status: inPogressStatus });
+    } else if (state == 'active' && !pickedBy) {
+      let todo = this.statuses.find(status => status.status == 'To Do')?.id;
+      this.taskForm.patchValue({ status: todo });
+    }
+  }
+
   filterPossibleUsers(): void {
     let categoryId = this.taskForm.value.category;
-    console.log('Category:', categoryId);
+
     if (!categoryId) {
       this.possibleUsers = this.users;
     } else {

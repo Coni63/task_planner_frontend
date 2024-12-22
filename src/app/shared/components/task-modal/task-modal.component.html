@@ -15,7 +15,7 @@
     <p>
       <mat-form-field appearance="fill">
         <mat-label>Project</mat-label>
-        <mat-select formControlName="project">
+        <mat-select formControlName="project" (selectionChange)="onProjectChange($event)">
           <mat-option *ngFor="let project of projects" [value]="project.id">{{ project.name }}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -64,7 +64,7 @@
     <p>
       <mat-form-field appearance="fill">
         <mat-label>Picked By</mat-label>
-        <mat-select formControlName="pickedBy">
+        <mat-select formControlName="pickedBy" (selectionChange)="onPickedByChange($event)">
           <mat-option value="">Unassigned</mat-option>
           <mat-option *ngFor="let user of possibleUsers" [value]="user.user.id">{{ user.user.name }}</mat-option>
         </mat-select>

@@ -52,8 +52,8 @@ export class ConfigurationCategoriesComponent implements OnInit {
         this.cdr.markForCheck();
         this.table.renderRows();
       },
-      error: e => console.error(e),
-      complete: () => console.info('complete'),
+      error: e => {},
+      complete: () => {},
     });
   }
 
@@ -64,9 +64,6 @@ export class ConfigurationCategoriesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-
       if (!result) {
         return;
       }
@@ -84,9 +81,6 @@ export class ConfigurationCategoriesComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-
       const index = this.categories.findIndex(category => category.id === result.id);
       if (index !== -1) {
         this.categories[index] = result;
@@ -105,8 +99,8 @@ export class ConfigurationCategoriesComponent implements OnInit {
           this.cdr.markForCheck();
           this.table.renderRows();
         },
-        error: e => console.error(e),
-        complete: () => console.info('complete'),
+        error: e => {},
+        complete: () => {},
       });
     }
   }

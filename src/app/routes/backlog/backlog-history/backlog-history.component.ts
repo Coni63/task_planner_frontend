@@ -44,7 +44,6 @@ export class BacklogBacklogHistoryComponent implements OnInit {
 
       ajax: (dataTablesParameters: any, callback) => {
         that.assignationsService.getHistory(dataTablesParameters).subscribe(response => {
-          console.log('Server response:', response);
           callback({
             recordsTotal: response.total,
             recordsFiltered: response.filtered,

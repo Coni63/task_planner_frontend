@@ -43,7 +43,7 @@ export class MyTasksAssignationsComponent implements OnInit {
         this.myTasks = myTasks;
         this.status = status;
       },
-      error: e => console.error(e),
+      error: e => {},
       complete: () => (this.loading = false),
     });
   }
@@ -58,7 +58,6 @@ export class MyTasksAssignationsComponent implements OnInit {
         }
       },
       error: err => {
-        console.log(err);
         this.toast.error('Error picking task');
       },
       complete: () => {},
@@ -79,13 +78,10 @@ export class MyTasksAssignationsComponent implements OnInit {
     };
     this.assignationsService.patchTask(task.id, subset).subscribe({
       next: res => {
-        console.log(res);
-        console.log(this.myTasks);
         let idx = this.myTasks.findIndex(t => t.id === task.id);
         this.myTasks[idx] = res;
       },
       error: err => {
-        console.log(err);
         this.toast.error('Error picking task');
       },
       complete: () => {},
@@ -102,7 +98,7 @@ export class MyTasksAssignationsComponent implements OnInit {
       next: res => {
         this.myTasks = this.myTasks.filter(t => t.id !== task.id);
       },
-      error: err => console.log(err),
+      error: err => {},
       complete: () => {},
     });
   }

@@ -2,4 +2,14 @@ auto ID per trigram
 
 fetch task after setting up the project when creating tasks
 
+Rules:
+
+- Cannot assign a user to a pending or closed task
+- Cannot revert status to pending with a user
+- Cannot assign 2 active task to the same user
+
+Reordering in a smarter way (and check dependancies)
+
 - check for circular refs
+
+Task Form: - INlcude business rules

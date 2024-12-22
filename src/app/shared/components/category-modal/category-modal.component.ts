@@ -78,15 +78,9 @@ export class CategoryModalComponent {
         next: (response: Category) => {
           this.dialogRef.close(response);
         },
-        error: (error: any) => {
-          console.error('Error creating category:', error);
-        },
-        complete: () => {
-          console.log('complete');
-        },
+        error: (error: any) => {},
+        complete: () => {},
       });
-    } else {
-      console.log('Form is invalid');
     }
   }
 

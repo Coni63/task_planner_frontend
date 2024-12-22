@@ -18,13 +18,11 @@ export class AssignationsService {
   constructor(private httpClient: HttpClient) {}
 
   getMyAssignations() {
-    console.log('getMyAssignations');
     return this.getAllTasks('', true, ['active', 'blocked']);
   }
 
   getAllTasks(project_id: string, me: boolean, states: string[]) {
     let params = new HttpParams();
-    console.log(project_id, me, states);
     if (project_id) {
       params = params.append('project', project_id);
     }

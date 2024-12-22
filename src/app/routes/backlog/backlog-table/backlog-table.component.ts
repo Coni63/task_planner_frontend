@@ -73,10 +73,8 @@ export class BacklogBacklogTableComponent implements OnInit {
         this.table.renderRows();
         // this.openCreateTaskModal(); // TODO: remove
       },
-      error: err => console.log(err),
-      complete: () => {
-        console.info('complete');
-      },
+      error: err => {},
+      complete: () => {},
     });
   }
 

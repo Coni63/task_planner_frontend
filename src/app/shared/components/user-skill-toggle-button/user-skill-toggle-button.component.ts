@@ -11,6 +11,7 @@ import { MatLabel } from '@angular/material/form-field';
 import { UserAssignmentNoUser } from '@shared/interfaces/interfaces';
 import { AssignationsService } from '@shared/services/assignations.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-skill-toggle-button',
@@ -33,7 +34,8 @@ export class UserSkillToggleButtonComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private assignationsService: AssignationsService
+    private assignationsService: AssignationsService,
+    private toast: ToastrService
   ) {
     this.skillForm = this.fb.group({
       id: [null],
@@ -49,7 +51,6 @@ export class UserSkillToggleButtonComponent implements OnInit {
 
   private initForm() {
     if (this._assignment) {
-      console.log(this._assignment);
       this.skillForm.patchValue(
         {
           id: this._assignment.id ?? null,
@@ -63,12 +64,11 @@ export class UserSkillToggleButtonComponent implements OnInit {
   }
 
   onChange() {
-    console.log(this.skillForm.value);
     this.assignationsService.createOrUpdateAssignment(this.skillForm.value).subscribe({
       next: () => {
-        console.log('Assignment updated');
+        this.toast.success('Assignment updated');
       },
-      error: (e: any) => console.error(e),
+      error: e => {},
       complete: () => {},
     });
   }
