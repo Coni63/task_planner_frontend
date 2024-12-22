@@ -79,12 +79,37 @@ export class BacklogBacklogTableComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Task[]>) {
-    moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
+    if (this.tasks.length == 0) return;
 
-    this.tasks.forEach((task, index) => (task.order = index));
-    this.assignationsService.reorderTasks(this.tasks).subscribe();
+    let previousOrder = this.tasks[event.previousIndex].order;
+    let newOrder = 0;
+    if (event.currentIndex == 0) {
+      newOrder = (this.tasks[0].order || 10) - 10;
+    } else if (event.currentIndex == this.tasks.length - 1) {
+      newOrder = (this.tasks[this.tasks.length - 1].order || 10) + 10;
+    } else {
+      let a = this.tasks[event.currentIndex].order || 10;
+      let b = this.tasks[event.currentIndex + 1].order || 10;
+      newOrder = (a + b) / 2;
+    }
 
-    this.table.renderRows();
+    this.tasks[event.previousIndex].order = newOrder;
+    let data = {
+      id: this.tasks[event.previousIndex].id,
+      order: newOrder,
+    };
+    this.assignationsService.patchTask(this.tasks[event.previousIndex].id, data).subscribe({
+      next: res => {
+        moveItemInArray(this.tasks, event.previousIndex, event.currentIndex);
+      },
+      error: err => {
+        this.tasks[event.previousIndex].order = previousOrder;
+      },
+      complete: () => {
+        this.cdr.markForCheck();
+        this.table.renderRows();
+      },
+    });
   }
 
   checkTheme(): void {
