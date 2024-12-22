@@ -24,6 +24,9 @@ FROM nginx:alpine
 # Copy the Angular build from the builder stage to NGINX
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+# Copy custom Nginx configuration
+COPY nginx.conf /usr/local/nginx/conf
+
 # Expose the necessary ports
 EXPOSE 80
 
