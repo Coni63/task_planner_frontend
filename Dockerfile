@@ -1,31 +1,32 @@
 # Stage 1: Build Angular 18 App
 FROM node:21-alpine AS builder
 
-# Install Angular CLI globally
-RUN npm install -g @angular/cli@18.0.0
-
 WORKDIR /app
 
 # Copy package files to install dependencies
-COPY package*.json ./
+COPY package*.json /app/
 
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the application files
-COPY . .
+COPY src/ /app/src/
+COPY public/ /app/public/ 
+COPY tsconfig*.json /app/
+COPY angular.json /app/
 
 # Build the Angular app for production
-RUN npm run build -- --output-path=dist --configuration=production
+RUN npm run build 
 
 # Stage 3: Combine Angular and Node.js with NGINX
 FROM nginx:alpine
 
 # Copy the Angular build from the builder stage to NGINX
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist/starter/browser /usr/share/nginx/html
+COPY --from=builder /app/public /usr/share/nginx/html/public 
 
 # Copy custom Nginx configuration
-COPY nginx.conf /usr/local/nginx/conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose the necessary ports
 EXPOSE 80
