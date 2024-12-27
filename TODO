@@ -13,3 +13,7 @@ Reordering in a smarter way (and check dependancies)
 - check for circular refs
 
 Task Form: - INlcude business rules
+
+Review controls:
+
+- User can only close his own task

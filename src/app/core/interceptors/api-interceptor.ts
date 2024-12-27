@@ -14,7 +14,7 @@ export class ApiInterceptor implements HttpInterceptor {
   private readonly toast = inject(ToastrService);
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    if (!req.url.includes('/api/')) {
+    if (!req.url.includes('/api/v1/')) {
       return next.handle(req);
     }
 
