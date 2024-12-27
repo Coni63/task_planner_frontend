@@ -4,11 +4,11 @@
 
 2. Replace the APIs at `login.service` with your owns.
 
-   - `/api/auth/token` Login
-   - `/api/auth/refresh` Refresh
-   - `/api/auth/logout` Logout
-   - `/api/user/me` Get user information
-   - `/api/user/menu` Get user menu
+   - `/api/v1/auth/token` Login
+   - `/api/v1/auth/refresh` Refresh
+   - `/api/v1/auth/logout` Logout
+   - `/api/v1/user/me` Get user information
+   - `/api/v1/user/menu` Get user menu
 
 3. If you have modified the login url (defaults to `auth/login`), you should correct it in the following files.
 

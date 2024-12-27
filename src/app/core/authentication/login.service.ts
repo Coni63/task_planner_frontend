@@ -12,7 +12,7 @@ export class LoginService {
   protected readonly http = inject(HttpClient);
 
   login(username: string, password: string, rememberMe = false) {
-    return this.http.post<Token>('/api/auth/token/', {
+    return this.http.post<Token>('/api/v1/auth/token/', {
       username,
       password,
       rememberMe,
@@ -20,18 +20,18 @@ export class LoginService {
   }
 
   refresh(params: Record<string, any>) {
-    return this.http.post<Token>('/api/auth/token/refresh/', params);
+    return this.http.post<Token>('/api/v1/auth/token/refresh/', params);
   }
 
   logout() {
-    return this.http.post<any>('/api/auth/token/logout/', {});
+    return this.http.post<any>('/api/v1/auth/token/logout/', {});
   }
 
   me() {
-    return this.http.get<User>('/api/users/me/');
+    return this.http.get<User>('/api/v1/users/me/');
   }
 
   menu() {
-    return this.http.get<{ menu: Menu[] }>('/api/menu/').pipe(map(res => res.menu));
+    return this.http.get<{ menu: Menu[] }>('/api/v1/menu/').pipe(map(res => res.menu));
   }
 }

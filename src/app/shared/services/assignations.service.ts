@@ -35,88 +35,88 @@ export class AssignationsService {
       });
     }
 
-    return this.httpClient.get<Task[]>('/api/tasks/', { params });
+    return this.httpClient.get<Task[]>('/api/v1/tasks/', { params });
   }
 
   getHistory(dataTablesParameters: any) {
-    return this.httpClient.post<ApiResponse>('/api/tasks-history/', dataTablesParameters);
+    return this.httpClient.post<ApiResponse>('/api/v1/tasks-history/', dataTablesParameters);
   }
 
   getAllStatus() {
-    return this.httpClient.get<Status[]>('/api/status/');
+    return this.httpClient.get<Status[]>('/api/v1/status/');
   }
 
   getAllProjects() {
-    return this.httpClient.get<Project[]>('/api/projects/');
+    return this.httpClient.get<Project[]>('/api/v1/projects/');
   }
 
   getAllCategories() {
-    return this.httpClient.get<Category[]>('/api/categories/');
+    return this.httpClient.get<Category[]>('/api/v1/categories/');
   }
 
   getUserAssignments() {
-    return this.httpClient.get<UserAssignment[]>('/api/user-assignement/');
+    return this.httpClient.get<UserAssignment[]>('/api/v1/user-assignement/');
   }
 
   createOrUpdateCategory(category: Category) {
     if (category.id) {
-      return this.httpClient.put<Category>(`/api/categories/${category.id}/`, category);
+      return this.httpClient.put<Category>(`/api/v1/categories/${category.id}/`, category);
     }
-    return this.httpClient.post<Category>('/api/categories/', category);
+    return this.httpClient.post<Category>('/api/v1/categories/', category);
   }
 
   createOrUpdateStatus(status: Status) {
     if (status.id) {
-      return this.httpClient.put<Status>(`/api/status/${status.id}/`, status);
+      return this.httpClient.put<Status>(`/api/v1/status/${status.id}/`, status);
     }
-    return this.httpClient.post<Status>('/api/status/', status);
+    return this.httpClient.post<Status>('/api/v1/status/', status);
   }
 
   createOrUpdateProject(project: Project) {
     if (project.id) {
-      return this.httpClient.put<Project>(`/api/projects/${project.id}/`, project);
+      return this.httpClient.put<Project>(`/api/v1/projects/${project.id}/`, project);
     }
-    return this.httpClient.post<Project>('/api/projects/', project);
+    return this.httpClient.post<Project>('/api/v1/projects/', project);
   }
 
   deleteProject(project: Project) {
-    return this.httpClient.delete<Project>(`/api/projects/${project.id}/`);
+    return this.httpClient.delete<Project>(`/api/v1/projects/${project.id}/`);
   }
 
   deleteCategory(category: Category) {
-    return this.httpClient.delete<Category>(`/api/categories/${category.id}/`);
+    return this.httpClient.delete<Category>(`/api/v1/categories/${category.id}/`);
   }
 
   deleteStatus(status: Status) {
-    return this.httpClient.delete<Status>(`/api/status/${status.id}/`);
+    return this.httpClient.delete<Status>(`/api/v1/status/${status.id}/`);
   }
 
   createOrUpdateTask(task: TaskSimple) {
     if (task.id) {
-      return this.httpClient.put<Task>(`/api/tasks/${task.id}/`, task);
+      return this.httpClient.put<Task>(`/api/v1/tasks/${task.id}/`, task);
     }
-    return this.httpClient.post<Task>('/api/tasks/', task);
+    return this.httpClient.post<Task>('/api/v1/tasks/', task);
   }
 
   getAllMembers() {
-    return this.httpClient.get<CustomUser[]>('/api/users/');
+    return this.httpClient.get<CustomUser[]>('/api/v1/users/');
   }
 
   createOrUpdateAssignment(assignment: UserAssignment) {
     if (assignment.id) {
       return this.httpClient.put<UserAssignment>(
-        `/api/user-assignement/${assignment.id}/`,
+        `/api/v1/user-assignement/${assignment.id}/`,
         assignment
       );
     }
-    return this.httpClient.post<UserAssignment>('/api/user-assignement/', assignment);
+    return this.httpClient.post<UserAssignment>('/api/v1/user-assignement/', assignment);
   }
 
   pickNextTask() {
-    return this.httpClient.get<Task | null>('/api/task-pick/');
+    return this.httpClient.get<Task | null>('/api/v1/task-pick/');
   }
 
   patchTask(taskId: string, data: any) {
-    return this.httpClient.patch<Task>(`/api/tasks/${taskId}/`, data);
+    return this.httpClient.patch<Task>(`/api/v1/tasks/${taskId}/`, data);
   }
 }
