@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -16,6 +17,7 @@ import { PageHeaderComponent } from '@shared';
   styleUrl: './layout.component.scss',
   standalone: true,
   imports: [
+    CommonModule,
     RouterLink,
     RouterOutlet,
     MatButtonModule,

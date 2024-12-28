@@ -58,6 +58,10 @@ export class AssignationsService {
     return this.httpClient.get<UserAssignment[]>('/api/v1/user-assignement/');
   }
 
+  getCurrentUser() {
+    return this.httpClient.get<CustomUser>('/api/v1/users/me/');
+  }
+
   createOrUpdateCategory(category: Category) {
     if (category.id) {
       return this.httpClient.put<Category>(`/api/v1/categories/${category.id}/`, category);
