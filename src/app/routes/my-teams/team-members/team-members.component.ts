@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PageHeaderComponent } from '@shared';
 import { ChangeDetectionStrategy, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -39,30 +39,29 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyTeamsTeamMembersComponent implements OnInit {
-  members: CustomUser[] = [];
-  categories: Category[] = [];
+  members = signal<CustomUser[]>([]); // Reactive signal for members
+  categories = signal<Category[]>([]); // Reactive signal for categories
+  loading = signal(true); // Signal for loading state
+  step = signal(0); // Signal for the current step
 
-  loading = true;
-  step = signal(0);
-  constructor(
-    private assignationsService: AssignationsService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private assignationsService: AssignationsService) {}
 
   ngOnInit() {
-    this.loading = true;
+    this.loading.set(true);
 
     forkJoin({
       members: this.assignationsService.getAllMembers(),
       categories: this.assignationsService.getAllCategories(),
     }).subscribe({
       next: ({ members, categories }) => {
-        this.members = members;
-        this.categories = categories;
-        this.cdr.markForCheck();
+        this.members.set(members);
+        this.categories.set(categories);
+        this.loading.set(false);
       },
-      error: e => console.error(e),
-      complete: () => (this.loading = false),
+      error: e => {
+        console.error(e);
+        this.loading.set(false);
+      },
     });
   }
 
@@ -92,5 +91,14 @@ export class MyTeamsTeamMembersComponent implements OnInit {
     } else {
       return 'No role assigned';
     }
+  }
+
+  onUpdate(data: CustomUser) {
+    console.log('onUpdate', data);
+    this.onRoleUpdate(data);
+  }
+
+  private onRoleUpdate(data: CustomUser) {
+    this.members.update(members => members.map(member => (member.id === data.id ? data : member)));
   }
 }

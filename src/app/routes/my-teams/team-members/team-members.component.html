@@ -1,11 +1,11 @@
 <page-header></page-header>
 
-@if (loading) {
+@if (loading()) {
     <app-loading></app-loading>
 } @else {
 
     <mat-accordion class="example-headers-align">
-        @for(member of members; track member.id) {        
+        @for(member of members(); track member.id) {        
             <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -22,14 +22,14 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
 
-            @for (assignment of member.categories; track assignment) {
+            @for (assignment of member.categories; track assignment.id) {
                 <p>
                     <app-user-skill-toggle-button [assignment]="assignment"></app-user-skill-toggle-button>
                 </p>
                   
             }
             
-            <p><app-user-role-toggle-button [user]="member"/></p>
+            <p><app-user-role-toggle-button [user]="member" (onUpdate)="onUpdate($event)"/></p>
             
             </mat-expansion-panel>
         }

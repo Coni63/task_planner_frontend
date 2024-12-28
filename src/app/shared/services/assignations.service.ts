@@ -120,7 +120,7 @@ export class AssignationsService {
     return this.httpClient.patch<Task>(`/api/v1/tasks/${taskId}/`, data);
   }
 
-  createOrUpdateUserRoles(data: any) {
-    return this.httpClient.patch('/api/v1/users/', data);
+  patchUser(userId: string, data: any) {
+    return this.httpClient.patch<CustomUser>(`/api/v1/users/${userId}/`, data);
   }
 }

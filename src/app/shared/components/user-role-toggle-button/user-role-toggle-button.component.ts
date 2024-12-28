@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -22,6 +22,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UserRoleToggleButtonComponent implements OnInit {
   rolesForm: FormGroup;
+
+  @Output() onUpdate = new EventEmitter<CustomUser>();
 
   @Input() set user(value: CustomUser) {
     this._user = value;
@@ -61,8 +63,12 @@ export class UserRoleToggleButtonComponent implements OnInit {
     this.rolesForm.patchValue({ roles: event.value });
 
     // Call service to save the updated roles
-    this.assignationsService.createOrUpdateUserRoles(this.rolesForm.value).subscribe({
-      next: () => this.toast.success('Assignment updated'),
+    this.assignationsService.patchUser(this._user.id, this.rolesForm.value).subscribe({
+      next: res => {
+        this.toast.success('Assignment updated');
+        console.log('onChange', res);
+        this.onUpdate.emit(res);
+      },
       error: () => this.toast.error('Failed to update assignment'),
     });
   }
