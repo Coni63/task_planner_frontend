@@ -15,6 +15,7 @@ import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { MatButtonToggle, MatButtonToggleModule } from '@angular/material/button-toggle';
 import { UserSkillToggleButtonComponent } from '@shared/components/user-skill-toggle-button/user-skill-toggle-button.component';
 import { UserRoleToggleButtonComponent } from '@shared/components/user-role-toggle-button/user-role-toggle-button.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-my-teams-team-members',
@@ -33,6 +34,7 @@ import { UserRoleToggleButtonComponent } from '@shared/components/user-role-togg
     LoadingComponent,
     UserSkillToggleButtonComponent,
     UserRoleToggleButtonComponent,
+    MatTooltipModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -62,5 +64,33 @@ export class MyTeamsTeamMembersComponent implements OnInit {
       error: e => console.error(e),
       complete: () => (this.loading = false),
     });
+  }
+
+  get_icon(user: CustomUser) {
+    if (user.roles.includes('ADMIN')) {
+      return 'star_rate';
+    } else if (user.roles.includes('MANAGER')) {
+      return 'verified_user';
+    } else if (user.roles.includes('COORDINATOR')) {
+      return 'supervisor_account';
+    } else if (user.roles.includes('MEMBER')) {
+      return 'person';
+    } else {
+      return 'block';
+    }
+  }
+
+  get_role(user: CustomUser) {
+    if (user.roles.includes('ADMIN')) {
+      return 'Admin';
+    } else if (user.roles.includes('MANAGER')) {
+      return 'Manager';
+    } else if (user.roles.includes('COORDINATOR')) {
+      return 'Coordinator';
+    } else if (user.roles.includes('MEMBER')) {
+      return 'Member';
+    } else {
+      return 'No role assigned';
+    }
   }
 }
