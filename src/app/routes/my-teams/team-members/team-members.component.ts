@@ -14,6 +14,7 @@ import { LoadingComponent } from '@shared/components/loading/loading.component';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { MatButtonToggle, MatButtonToggleModule } from '@angular/material/button-toggle';
 import { UserSkillToggleButtonComponent } from '@shared/components/user-skill-toggle-button/user-skill-toggle-button.component';
+import { UserRoleToggleButtonComponent } from '@shared/components/user-role-toggle-button/user-role-toggle-button.component';
 
 @Component({
   selector: 'app-my-teams-team-members',
@@ -31,6 +32,7 @@ import { UserSkillToggleButtonComponent } from '@shared/components/user-skill-to
     MatDatepickerModule,
     LoadingComponent,
     UserSkillToggleButtonComponent,
+    UserRoleToggleButtonComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
