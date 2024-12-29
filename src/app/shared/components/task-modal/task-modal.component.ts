@@ -113,7 +113,7 @@ export class TaskModalComponent implements OnInit {
           expectedFinalization: this.data.expectedFinalization,
           pickedBy: this.data.pickedBy?.id,
           reservedForUser: this.data.reservedForUser,
-          dependencies: this.data.dependencies.map(dep => dep.id),
+          dependencies: this.data.dependencies,
         });
         this.filterPossibleUsers();
       }
