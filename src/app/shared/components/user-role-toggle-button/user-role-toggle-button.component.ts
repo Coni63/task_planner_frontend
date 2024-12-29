@@ -69,7 +69,7 @@ export class UserRoleToggleButtonComponent implements OnInit {
         console.log('onChange', res);
         this.onUpdate.emit(res);
       },
-      error: () => this.toast.error('Failed to update assignment'),
+      error: () => {},
     });
   }
 }

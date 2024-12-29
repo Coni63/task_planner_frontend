@@ -9,6 +9,7 @@ import {
   Category,
   TaskSimple,
   CustomUser,
+  StatusWithTransition,
 } from '@shared/interfaces/interfaces';
 
 @Injectable({
@@ -71,9 +72,9 @@ export class AssignationsService {
 
   createOrUpdateStatus(status: Status) {
     if (status.id) {
-      return this.httpClient.put<Status>(`/api/v1/status/${status.id}/`, status);
+      return this.httpClient.put<StatusWithTransition>(`/api/v1/status/${status.id}/`, status);
     }
-    return this.httpClient.post<Status>('/api/v1/status/', status);
+    return this.httpClient.post<StatusWithTransition>('/api/v1/status/', status);
   }
 
   createOrUpdateProject(project: Project) {

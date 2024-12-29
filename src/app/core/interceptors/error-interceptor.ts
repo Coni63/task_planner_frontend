@@ -1,6 +1,7 @@
 import { HttpErrorResponse, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { match } from 'assert';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, throwError } from 'rxjs';
 
@@ -35,16 +36,33 @@ export class ErrorInterceptor implements HttpInterceptor {
   }
 
   private handleError(error: HttpErrorResponse) {
+    console.log('error', error);
+
     if (this.errorPages.includes(error.status)) {
-      this.router.navigateByUrl(`/${error.status}`, {
-        skipLocationChange: true,
-      });
+      switch (error.status) {
+        case STATUS.FORBIDDEN:
+          this.toast.error(error.error);
+          break;
+        case STATUS.UNAUTHORIZED:
+          this.router.navigateByUrl(`/${error.status}`, {
+            skipLocationChange: true,
+          });
+          break;
+        case STATUS.NOT_FOUND:
+          this.router.navigateByUrl(`/${error.status}`, {
+            skipLocationChange: true,
+          });
+          break;
+        case STATUS.INTERNAL_SERVER_ERROR:
+          this.toast.error(error.error);
+          break;
+        default:
+          console.error('ERROR', error);
+          this.toast.error(this.getMessage(error));
+      }
     } else {
       console.error('ERROR', error);
       this.toast.error(this.getMessage(error));
-      if (error.status === STATUS.UNAUTHORIZED) {
-        this.router.navigateByUrl('/auth/login');
-      }
     }
 
     return throwError(() => error);

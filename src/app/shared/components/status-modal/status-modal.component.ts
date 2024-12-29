@@ -20,7 +20,7 @@ import {
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Status } from '@shared/interfaces/interfaces';
+import { StatusWithTransition } from '@shared/interfaces/interfaces';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AssignationsService } from '@shared/services/assignations.service';
@@ -50,7 +50,7 @@ import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
 })
 export class StatusModalComponent {
   readonly dialogRef = inject(MatDialogRef<StatusModalComponent>);
-  readonly data = inject<Status>(MAT_DIALOG_DATA);
+  readonly data = inject<StatusWithTransition>(MAT_DIALOG_DATA);
   readonly fb = inject(FormBuilder);
   readonly assignationsService = inject(AssignationsService);
 
@@ -79,7 +79,7 @@ export class StatusModalComponent {
       console.log('Form Data:', this.statusForm.value);
       // Emit or handle form submission logic here
       this.assignationsService.createOrUpdateStatus(this.statusForm.value).subscribe({
-        next: (response: Status) => {
+        next: (response: StatusWithTransition) => {
           this.dialogRef.close(response);
         },
         error: (error: any) => {},

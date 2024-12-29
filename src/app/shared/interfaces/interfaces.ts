@@ -117,6 +117,15 @@ export interface Status {
   darkColor: string;
 }
 
+export interface StatusWithTransition {
+  id: string;
+  status: string;
+  state: 'pending' | 'active' | 'closed' | 'blocked';
+  color: string;
+  darkColor: string;
+  transitions: Status[];
+}
+
 /**
  * Task Interface
  */
