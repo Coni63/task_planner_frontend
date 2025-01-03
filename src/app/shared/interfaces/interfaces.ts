@@ -51,8 +51,6 @@ export interface CustomUser {
   email: string;
   firstName: string;
   lastName: string;
-  isMember: boolean;
-  isAdmin: boolean;
   roles: string[];
   permissions: string[];
   avatar: string;
