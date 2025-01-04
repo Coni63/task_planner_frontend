@@ -169,17 +169,6 @@ export interface TaskSimple {
 }
 
 /**
- * TaskAudit Interface
- */
-export interface TaskAudit {
-  id: string;
-  task: string; // Only the task id
-  status: string; // Only the status id
-  user: string | null; // Only the user id
-  updatedAt: string; // ISO date string
-}
-
-/**
  * ScheduleRule Interface
  */
 export interface ScheduleRule {
