@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { PageHeaderComponent } from '@shared';
+import { HumanDurationPipe, PageHeaderComponent } from '@shared';
 import { MatButtonModule } from '@angular/material/button';
 import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AssignationsService } from '@shared/services/assignations.service';
@@ -17,7 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { TaskModalComponent } from '@shared/components/task-modal/task-modal.component';
 import { MatDialog } from '@angular/material/dialog';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-backlog-backlog-table',
@@ -35,6 +35,8 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
+    DatePipe,
+    HumanDurationPipe,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
