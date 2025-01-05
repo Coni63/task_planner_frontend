@@ -46,6 +46,7 @@ export class BacklogBacklogTableComponent implements OnInit {
   loading = true;
   tasks: Task[] = [];
   isDarkTheme: boolean = false;
+  dragDisabled = true;
 
   constructor(
     private assignationsService: AssignationsService,
@@ -81,6 +82,9 @@ export class BacklogBacklogTableComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<Task[]>) {
+    // Return the drag container to disabled.
+    this.dragDisabled = true;
+
     if (this.tasks.length == 0) return;
 
     let previousOrder = this.tasks[event.previousIndex].order;

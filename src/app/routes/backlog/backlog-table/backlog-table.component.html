@@ -1,7 +1,7 @@
 <page-header></page-header>
 
 <section>
-    <table mat-table [dataSource]="tasks" cdkDropList (cdkDropListDropped)="drop($event)">
+    <table mat-table [dataSource]="tasks" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListDisabled]="dragDisabled">
 
     <!-- Project Column -->
     <ng-container matColumnDef="project">
@@ -63,13 +63,13 @@
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let task"> 
-        <mat-icon>unfold_more</mat-icon>
+        <mat-icon (mousedown)="dragDisabled = false;" (mouseUp)="dragDisabled = true;">unfold_more</mat-icon>
         <mat-icon (click)="editTaskModal(task)">create</mat-icon> 
       </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="['project', 'reference', 'pickedBy', 'pickedAt', 'estimatedDuration', 'estimatedFinalization', 'expectedFinalization',  'edit']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['project', 'reference', 'pickedBy', 'pickedAt', 'estimatedDuration', 'estimatedFinalization', 'expectedFinalization', 'edit'];" cdkDrag [ngStyle]="{'background-color': isDarkTheme ? row.status.darkColor : row.status.color}"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['project', 'reference', 'pickedBy', 'pickedAt', 'estimatedDuration', 'estimatedFinalization', 'expectedFinalization', 'edit'];" cdkDrag [cdkDragData]="row" [ngStyle]="{'background-color': isDarkTheme ? row.status.darkColor : row.status.color}"></tr>
 
   </table>
 </section>

@@ -138,7 +138,8 @@ export interface Task {
   pickedAt: string | null; // ISO date string
   estimatedDuration: string | null; // ISO 8601 duration (e.g., 'P1D' for one day)
   expectedFinalization: string | null; // ISO date string
-  estimatedFinalization: string | null;
+  estimatedPickedAt: string | null; // ISO date string
+  estimatedFinalization: string | null; // ISO date string
   order: number | null;
   pickedBy: CustomUser | null;
   reservedForUser: CustomUser | null;
